@@ -1,9 +1,39 @@
 import { useEffect, useState } from "react";
 import finnhub from "../api/finnhub";
 
+interface Result {
+  description: string;
+  displaySymbol: string;
+  symbol: string;
+  type: string;
+}
+
 const Search = () => {
   const [search, setSearch] = useState("");
   const [results, setResults] = useState([]);
+
+  const renderDropdown = () => {
+    const dropdDownClass = search ? "dropdown-menu show" : "dropdown-menu";
+    return (
+      <ul
+        style={{
+          height: "500px",
+          overflowY: "scroll",
+          overflowX: "hidden",
+          cursor: "pointer",
+        }}
+        className={dropdDownClass}
+      >
+        {results.map((result: Result) => {
+          return (
+            <li key={result.symbol} className="dropdown-item">
+              {result.description}({result.symbol})
+            </li>
+          );
+        })}
+      </ul>
+    );
+  };
 
   useEffect(() => {
     let isMounted = true;
@@ -47,6 +77,7 @@ const Search = () => {
           onChange={(e) => setSearch(e.target.value)}
         ></input>
         <label htmlFor="search">Search</label>
+        {renderDropdown()}
       </div>
     </div>
   );
