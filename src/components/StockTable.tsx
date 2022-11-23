@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import finnhub from "../api/finnhub";
+import { BsFillCaretDownFill, BsFillCaretUpFill } from "react-icons/bs";
 
 interface StockData {
   symbol: string;
@@ -17,6 +18,15 @@ interface StockData {
 const StockTable = () => {
   const [stock, setStock] = useState([]);
   const [watchList, setWatchList] = useState(["GOOGL", "MSFT", "AAPL"]);
+
+  // Determine the value of stock is positive or negative -> change color
+  const determineColor = (change: number) => {
+    return change > 0 ? "text-success" : "text-danger";
+  };
+
+  const renderIcon = (change: number) => {
+    return change > 0 ? <BsFillCaretUpFill /> : <BsFillCaretDownFill />;
+  };
 
   useEffect(() => {
     // after we send the response out, the component will get unmounted, we don't want to call setStock if the component get unmounted
@@ -78,8 +88,14 @@ const StockTable = () => {
               >
                 <th scope="row">{stockData.symbol}</th>
                 <td>{stockData.data.c}</td>
-                <td>{stockData.data.d}</td>
-                <td>{stockData.data.dp}</td>
+                <td className={determineColor(stockData.data.d)}>
+                  {stockData.data.d}
+                  {renderIcon(stockData.data.d)}
+                </td>
+                <td className={determineColor(stockData.data.dp)}>
+                  {stockData.data.dp}
+                  {renderIcon(stockData.data.d)}
+                </td>
                 <td>{stockData.data.h}</td>
                 <td>{stockData.data.l}</td>
                 <td>{stockData.data.o}</td>

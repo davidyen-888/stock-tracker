@@ -26,6 +26,6 @@ dist-ssr
 # Package manager directories
 node_modules/
 package.json
-
+package-lock.json
 
 .gitignore
