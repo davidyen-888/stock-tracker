@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import finnhub from "../api/finnhub";
 import { BsFillCaretDownFill, BsFillCaretUpFill } from "react-icons/bs";
+import { WatchListContext } from "../context/WatchListContext";
 
 interface StockData {
   symbol: string;
@@ -16,8 +17,9 @@ interface StockData {
 }
 
 const StockTable = () => {
-  const [stock, setStock] = useState([]);
-  const [watchList, setWatchList] = useState(["GOOGL", "MSFT", "AAPL"]);
+  const [stock, setStock] = useState<StockData[]>([]);
+  // const [watchList, setWatchList] = useState(["GOOGL", "MSFT", "AAPL"]);
+  const { watchList, deleteStock } = useContext(WatchListContext);
 
   // Determine the value of stock is positive or negative -> change color
   const determineColor = (change: number) => {
@@ -34,7 +36,7 @@ const StockTable = () => {
     const fetchData = async () => {
       try {
         const responses = await Promise.all(
-          watchList.map((stock) => {
+          watchList.map((stock: string) => {
             return finnhub.get("/quote", {
               params: {
                 symbol: stock,
@@ -43,7 +45,7 @@ const StockTable = () => {
           })
         );
         console.log(responses);
-        const responseData: any = responses.map((response) => {
+        const responseData: any = responses.map((response: any) => {
           return {
             data: response.data,
             symbol: response.config.params.symbol,
@@ -61,7 +63,7 @@ const StockTable = () => {
     return () => {
       isMounted = false;
     };
-  }, []);
+  }, [watchList]);
 
   return (
     <div>

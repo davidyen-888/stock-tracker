@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import finnhub from "../api/finnhub";
+import { WatchListContext } from "../context/WatchListContext";
 
 interface Result {
   description: string;
@@ -11,6 +12,7 @@ interface Result {
 const Search = () => {
   const [search, setSearch] = useState("");
   const [results, setResults] = useState([]);
+  const { addStock } = useContext(WatchListContext);
 
   const renderDropdown = () => {
     const dropdDownClass = search ? "dropdown-menu show" : "dropdown-menu";
@@ -26,7 +28,14 @@ const Search = () => {
       >
         {results.map((result: Result) => {
           return (
-            <li key={result.symbol} className="dropdown-item">
+            <li
+              onClick={() => {
+                addStock(result.symbol);
+                setSearch("");
+              }}
+              key={result.symbol}
+              className="dropdown-item"
+            >
               {result.description}({result.symbol})
             </li>
           );
