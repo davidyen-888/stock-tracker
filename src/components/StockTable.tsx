@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import finnhub from "../api/finnhub";
 import { BsFillCaretDownFill, BsFillCaretUpFill } from "react-icons/bs";
 import { WatchListContext } from "../context/WatchListContext";
+import { useNavigate } from "react-router-dom";
 
 interface StockData {
   symbol: string;
@@ -20,6 +21,8 @@ const StockTable = () => {
   const [stock, setStock] = useState<StockData[]>([]);
   // const [watchList, setWatchList] = useState(["GOOGL", "MSFT", "AAPL"]);
   const { watchList, deleteStock } = useContext(WatchListContext);
+  // for url navigation
+  const navigate = useNavigate();
 
   // Determine the value of stock is positive or negative -> change color
   const determineColor = (change: number) => {
@@ -28,6 +31,10 @@ const StockTable = () => {
 
   const renderIcon = (change: number) => {
     return change > 0 ? <BsFillCaretUpFill /> : <BsFillCaretDownFill />;
+  };
+
+  const handleStockSelect = (symbol: string) => {
+    navigate(`detail/${symbol}`);
   };
 
   useEffect(() => {
@@ -84,6 +91,7 @@ const StockTable = () => {
           {stock.map((stockData: StockData) => {
             return (
               <tr
+                onClick={() => handleStockSelect(stockData.symbol)}
                 style={{ cursor: "pointer" }}
                 className="table-row"
                 key={stockData.symbol}
