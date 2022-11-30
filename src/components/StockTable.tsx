@@ -41,6 +41,7 @@ const StockTable = () => {
     // after we send the response out, the component will get unmounted, we don't want to call setStock if the component get unmounted
     let isMounted = true;
     const fetchData = async () => {
+      // We'll use Promise.all instead to prevent getting request in sequence
       try {
         const responses = await Promise.all(
           watchList.map((stock: string) => {
