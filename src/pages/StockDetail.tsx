@@ -85,8 +85,7 @@ const StockDetail = () => {
 
   return (
     <div>
-      <h1>Stock Detail</h1>
-      <StockChart />
+      {chartData && <StockChart chartData={chartData} symbol={symbol} />}
     </div>
   );
 };
