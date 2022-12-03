@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import finnhub from "../api/finnhub";
 import StockChart from "../components/StockChart";
+import StockData from "../components/StockData";
 
 interface data {
   c: number[];
@@ -86,6 +87,7 @@ const StockDetail = () => {
   return (
     <div>
       {chartData && <StockChart chartData={chartData} symbol={symbol} />}
+      <StockData symbol={symbol} />
     </div>
   );
 };

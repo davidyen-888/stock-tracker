@@ -32,7 +32,21 @@ const StockChart = ({
     }
   };
 
+  const determineColor = () => {
+    if (determineTimeFormat()) {
+      if (
+        determineTimeFormat()[determineTimeFormat().length - 1].y >
+        determineTimeFormat()[0].y
+      ) {
+        return "#26C281";
+      } else {
+        return "#ED3419";
+      }
+    }
+  };
+
   const options: Object = {
+    colors: [determineColor()],
     title: {
       text: symbol,
       align: "center",
@@ -78,7 +92,7 @@ const StockChart = ({
 
   return (
     <div className="mt-5 p-4 shadow-sm bg-white">
-      <Chart options={options} series={series} type="area" width="250%" />
+      <Chart options={options} series={series} type="area" width="100%" />
       <div>
         <button
           className={renderButtonSelect("24h")}
