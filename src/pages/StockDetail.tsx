@@ -50,7 +50,7 @@ const StockDetail = () => {
               symbol: symbol,
               from: oneDay,
               to: currTime,
-              resolution: 30,
+              resolution: 1,
             },
           }),
           finnhub.get("/stock/candle", {
@@ -58,7 +58,7 @@ const StockDetail = () => {
               symbol: symbol,
               from: oneWeek,
               to: currTime,
-              resolution: 60,
+              resolution: 15,
             },
           }),
           finnhub.get("/stock/candle", {

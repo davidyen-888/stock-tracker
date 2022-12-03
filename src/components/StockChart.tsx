@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Chart from "react-apexcharts";
+import { IoCaretBackOutline } from "react-icons/io5";
 
 interface ChartData {
   day: string;
@@ -49,6 +50,7 @@ const StockChart = ({
     colors: [determineColor()],
     title: {
       text: symbol,
+
       align: "center",
       style: {
         fontSize: "24px",
@@ -92,6 +94,13 @@ const StockChart = ({
 
   return (
     <div className="mt-5 p-4 shadow-sm bg-white">
+      <div className="row">
+        <div className="col">
+          <a href="/">
+            <IoCaretBackOutline className="fs-1" />
+          </a>
+        </div>
+      </div>
       <Chart options={options} series={series} type="area" width="100%" />
       <div>
         <button

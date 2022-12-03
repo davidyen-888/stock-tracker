@@ -36,6 +36,7 @@ const StockData = ({ symbol }: { symbol: any }) => {
             <div>
               <span className="fw-bold">Name: </span>
               {stockData.name}
+              <img src={stockData.logo} alt="logo" className="ms-2" />
             </div>
             <div>
               <span className="fw-bold">Country: </span>
