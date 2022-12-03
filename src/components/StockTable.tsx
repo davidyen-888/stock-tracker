@@ -3,6 +3,7 @@ import finnhub from "../api/finnhub";
 import { BsFillCaretDownFill, BsFillCaretUpFill } from "react-icons/bs";
 import { WatchListContext } from "../context/WatchListContext";
 import { useNavigate } from "react-router-dom";
+import { AiFillCloseCircle } from "react-icons/ai";
 
 interface StockData {
   symbol: string;
@@ -76,7 +77,7 @@ const StockTable = () => {
   return (
     <div>
       <table className="table hover mt-5">
-        <thead style={{ color: "rgb(79, 89, 102)" }}>
+        <thead style={{ color: "rgb(79, 89, 102)", textAlign: "center" }}>
           <tr>
             <th scope="col">Name</th>
             <th scope="col">Last</th>
@@ -86,6 +87,7 @@ const StockTable = () => {
             <th scope="col">Low</th>
             <th scope="col">Open</th>
             <th scope="col">Close</th>
+            <th scope="col"></th>
           </tr>
         </thead>
         <tbody>
@@ -93,7 +95,7 @@ const StockTable = () => {
             return (
               <tr
                 onClick={() => handleStockSelect(stockData.symbol)}
-                style={{ cursor: "pointer" }}
+                style={{ cursor: "pointer", textAlign: "center" }}
                 className="table-row"
                 key={stockData.symbol}
               >
@@ -110,17 +112,20 @@ const StockTable = () => {
                 <td>{stockData.data.h}</td>
                 <td>{stockData.data.l}</td>
                 <td>{stockData.data.o}</td>
+                <td>{stockData.data.pc}</td>
                 <td>
-                  {stockData.data.pc}
-                  <button
-                    className="btn btn-danger btn-sm ml-3 d-inline-block delete-button"
+                  <AiFillCloseCircle
+                    className="delete-button"
+                    style={{
+                      marginBottom: "4px",
+                      color: "red",
+                      fontSize: "20px",
+                    }}
                     onClick={(e) => {
                       e.stopPropagation();
                       deleteStock(stockData.symbol);
                     }}
-                  >
-                    Remove
-                  </button>
+                  />
                 </td>
               </tr>
             );
