@@ -30,8 +30,13 @@ const Search = () => {
           return (
             <li
               onClick={() => {
-                addStock(result.symbol);
-                setSearch("");
+                // check if symbol don't have "." in it
+                if (result.symbol.includes(".")) {
+                  alert("Please select a supported stock");
+                } else {
+                  addStock(result.symbol);
+                  setSearch("");
+                }
               }}
               key={result.symbol}
               className="dropdown-item"
