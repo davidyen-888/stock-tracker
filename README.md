@@ -8,6 +8,10 @@ Stock Tracker is a simple web application that allows you to track your stock po
 - Add stocks to your portfolio
 - View the stock price history and company information
 
+## Structure Overview
+<img width="706" alt="Screenshot 2023-01-07 at 2 06 11 PM" src="https://user-images.githubusercontent.com/61106644/211172023-4e8cb220-4ad4-42ed-be82-eba2457e1c80.png">
+Context API for sharing the universal state in the application.
+
 ## Installation
 
 [Vite](https://vitejs.dev/) is used as the build tool for this project. To install the dependencies, run the following command:
